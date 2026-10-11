@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CORRECT · Movement preview</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font:
+          13px system-ui,
+          sans-serif;
+        color: #192d46;
+        background: #eef1f4;
+      }
+      #stage {
+        position: absolute;
+        inset: 0 0 112px;
+      }
+      canvas {
+        display: block;
+        touch-action: none;
+      }
+      #toolbar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 9px 12px;
+        background: #f8fafbcc;
+        border-top: 1px solid #dce3e8;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      button,
+      select {
+        font: inherit;
+        border: 1px solid #c8d2dd;
+        background: white;
+        color: #192d46;
+        border-radius: 7px;
+        min-height: 34px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      button:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #e87967;
+        outline-offset: 1px;
+      }
+      #play {
+        background: #263f64;
+        color: white;
+      }
+      #phase {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        text-align: center;
+        pointer-events: none;
+        font-size: 11px;
+        letter-spacing: 0.03em;
+      }
+      #hint {
+        width: 100%;
+        text-align: center;
+        font-size: 11px;
+        color: #607087;
+      }
+      #error {
+        padding: 24px;
+        line-height: 1.5;
+      }
+      body.compact #stage {
+        inset: 0;
+      }
+      body.compact #toolbar,
+      body.compact #phase {
+        display: none;
+      }
+      body.compact {
+        background: transparent;
+      }
+      #progress {
+        position: absolute;
+        bottom: 112px;
+        left: 0;
+        height: 2px;
+        background: #df786a;
+        width: 0;
+        pointer-events: none;
+      }
+      @media (max-width: 370px) {
+        button,
+        select {
+          padding: 4px 7px;
+          font-size: 12px;
+        }
+        #toolbar {
+          gap: 4px;
+        }
+      }
+    </style>
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three.module.js" } }
+    </script>
+  </head>
+  <body>
+    <div id="stage" role="img" aria-label="Animated exercise model"></div>
+    <div id="phase" aria-live="off"></div>
+    <div id="progress"></div>
+    <div id="toolbar">
+      <input
+        id="scrub"
+        type="range"
+        aria-label="Movement position"
+        min="0"
+        max="8"
+        step="0.05"
+        value="1.2"
+        style="width: 100%; height: 12px; accent-color: #263f64"
+      /><button id="play" aria-label="Pause movement">Pause</button
+      ><select id="speed" aria-label="Playback speed">
+        <option value="0.5">0.5× slow</option>
+        <option value="1" selected>1× speed</option></select
+      ><button id="front">Front</button><button id="side">Side</button
+      ><button id="zoom-in" aria-label="Zoom in">+</button
+      ><button id="zoom-out" aria-label="Zoom out">−</button><button id="reset">Reset view</button>
+      <div id="hint">Drag to rotate · pinch or use + / − to zoom</div>
+    </div>
+    <script type="module" src="./viewer.mjs"></script>
+  </body>
+</html>
