@@ -263,6 +263,30 @@ function start() {
     updatePlay();
   };
   document.querySelector('#reset').onclick = reset;
+  document.querySelector('#restart').onclick = () => {
+    time = 0;
+    document.querySelector('#scrub').value = '0';
+    playing = !reduceMotion.matches;
+    updatePlay();
+  };
+  const fullscreenButton = document.querySelector('#fullscreen');
+  const viewerStatus = document.querySelector('#viewer-status');
+  if (!compact && document.fullscreenEnabled) {
+    fullscreenButton.hidden = false;
+    fullscreenButton.onclick = async () => {
+      viewerStatus.hidden = true;
+      try {
+        if (document.fullscreenElement) await document.exitFullscreen();
+        else await document.documentElement.requestFullscreen();
+      } catch {
+        viewerStatus.textContent = 'Full screen is unavailable here. Use + to zoom in.';
+        viewerStatus.hidden = false;
+      }
+    };
+    document.addEventListener('fullscreenchange', () => {
+      fullscreenButton.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+    });
+  }
   document.querySelector('#front').onclick = () => {
     camera.position.set(0, target.y + 0.3, 4);
     controls.target.copy(target);

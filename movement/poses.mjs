@@ -163,8 +163,8 @@ export function getPose(id, seconds = 0) {
     handsForward(0.91, 0.28);
     p[id === 'wrist-flex' ? 'wrist' : id === 'wrist-side' ? 'wristSide' : 'forearm'] = wave * 0.6;
   } else if (['shoulder-roll', 'ath-shoulder-roll'].includes(id)) {
-    p.shrug = 0.03 * Math.sin(seconds * 1.4);
-    p.shoulderRoll = 0.025 * Math.cos(seconds * 1.4);
+    p.shrug = 0.03 * Math.sin((seconds * Math.PI) / 2);
+    p.shoulderRoll = 0.025 * Math.cos((seconds * Math.PI) / 2);
   } else if (id === 'seated-turn') {
     p.twist = wave * 0.35;
     handsForward(0.88, 0.23);
@@ -294,7 +294,7 @@ export function getPose(id, seconds = 0) {
         arm = side > 0 ? 'right' : 'left';
       p[`${leg}Foot`] = [side * 0.16, 0.1 + 0.5 * d, -0.67 - 0.24 * d];
       p[`${leg}Knee`] = [side * 0.16, 0.1 + 0.5 * d, -0.15 - 0.34 * d];
-      p[`${arm}Hand`] = [-side * 0.23, 0.1 + 0.5 * d, 0.46 + 0.52 * d];
+      p[`${arm}Hand`] = [-side * (0.27 - 0.04 * d), 0.1 + 0.5 * d, 0.46 + 0.52 * d];
     }
   }
   if (id === 'lib-side-plank') {
