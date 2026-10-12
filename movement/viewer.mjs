@@ -284,7 +284,9 @@ function start() {
       }
     };
     document.addEventListener('fullscreenchange', () => {
-      fullscreenButton.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+      fullscreenButton.textContent = document.fullscreenElement
+        ? 'Exit full screen'
+        : 'Full screen';
     });
   }
   document.querySelector('#front').onclick = () => {
